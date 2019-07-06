@@ -194,7 +194,7 @@ span color="limegreen">&bull; Kitchen</span><br/>
 * OPTIONALLY run the setup-sample-data.sql file (only for demonstration
   purposes).
 * Connect to the database and change the password. The script above sets
-  the "appwdsetup" password to "arst2020#PW".
+  the "pbappsetup" password to "arst2020#PW".
   - Example connection using SQL Developer:
     - username: 
     - password: 
@@ -205,10 +205,10 @@ span color="limegreen">&bull; Kitchen</span><br/>
     `lsnrctl status`
 * Connecting normally
 (after running setup-db-oracle-xe-win.sql)
-  - Enter user-name: `connect appwdsetup/arst2020#PW@//localhost:1521/wdpdb` WORKS
-  - `connect appwdsetup/arst2020#PW@//localhost:1521/wdpdb` WORKS
-  - Enter user-name: `appwdsetup/arst2020#PW@wdpdb`
-  - `connect appwdsetup/arst2020#PW@wdpdb`
+  - Enter user-name: `connect pbappsetup/arst2020#PW@//localhost:1521/wdpdb` WORKS
+  - `connect pbappsetup/arst2020#PW@//localhost:1521/wdpdb` WORKS
+  - Enter user-name: `pbappsetup/arst2020#PW@wdpdb`
+  - `connect pbappsetup/arst2020#PW@wdpdb`
 
 #### universal steps 
 * get npm packages

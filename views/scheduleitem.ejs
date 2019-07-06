@@ -8,11 +8,18 @@
     <% include ../partials/header %>
   </header>
   <main>
-  </main>
+      <div id="formWrapper"></div>
+    </main>
   <footer>
     <% include ../partials/footer %>
-  </footer>
+    <script>
+        var formSpecs = JSON.parse('<%- JSON.stringify(formSpecs) %>');
+        var tables = JSON.parse('<%- JSON.stringify(tables) %>');
+        document.getElementById("formWrapper").innerHTML=generateForm(formSpecs['ScheduleItems'], tables); 
+      </script>
+    </footer>
 </body>
+</html>
 <%# 
 (Sevilleja, 2014)
 
@@ -21,5 +28,3 @@ References
 
 Sevilleja, C. (2014, July 31). Use EJS to template your Node application. Retrieved June 24, 2019, from Scotch website: http://scotch.io/tutorials/use-ejs-to-template-your-node-application
 %>
-
-</html>

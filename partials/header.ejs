@@ -1,0 +1,30 @@
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <!--<a class="navbar-brand" href="#">-->
+                    <span class="glyphicon glyphicon glyphicon-tree-deciduous"></span>
+                    PlanBranch
+            <!--</a>-->
+            <ul class="nav navbar-nav">
+                <!--<li><a href="/">Schedule</a></li>-->
+                <li>Schedule</li>
+                <li><a href="/people">People</a></li>
+                <li><a href="/activities">Activities</a></li>
+                <!-- <li><a href="/users">Users</a></li> -->
+            </ul>
+        </div>
+    </div>
+</nav>
+<%# 
+(Sevilleja, 2014)
+%>
+<% if (typeof errStr == 'object' && errStr) { %>
+    <div class="alert alert-danger" role="alert">
+        <%= errStr %>
+    </div>
+<% } %>
+<%# 
+References
+
+Sevilleja, C. (2014, July 31). Use EJS to template your Node application. Retrieved June 24, 2019, from Scotch website: http://scotch.io/tutorials/use-ejs-to-template-your-node-application
+%>

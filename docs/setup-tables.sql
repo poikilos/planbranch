@@ -1,4 +1,4 @@
-connect appwdsetup/arst2020#PW
+connect pbappsetup/arst2020#PW
 
 create table PeopleFlagsTypes (
     PFT_Id integer not null,
@@ -9,8 +9,8 @@ create table PeopleFlagsTypes (
 );
 
 create sequence pft_id_seq;
-create or replace trigger pft_id_trg 
-before insert on PeopleFlagsTypes 
+create or replace trigger pft_id_trg
+before insert on PeopleFlagsTypes
 for each row
 when (new.PFT_Id is null)
 begin
@@ -18,7 +18,8 @@ begin
   into   :new.PFT_Id
   from   dual;
 end;
-/*(“SQL - How to create id with auto_increment on Oracle?,” 2018)*/
+/
+/*(“SQL - How to,” 2018)*/
 
 create table WorkPermissionsTypes (
     WPT_Id integer not null,
@@ -46,7 +47,8 @@ create table PeopleUnavailableReasonsTypes (
 );
 
 create table PeoplePhases (
-    PP_Id integer
+    PP_Id integer  not null,
+    constraint pp_pk primary key (PP_Id)
 );
 
 create table People (
@@ -54,7 +56,7 @@ create table People (
     P_LastName varchar2(25),
     P_FirstName varchar2(25),
     P_MiddleName varchar2(25),
-    PP_Id varchar2(25),
+    PP_Id integer,
     PP_Active number(1),
     PP_Note varchar2(25),
     constraint p_pk primary key (P_Id),
@@ -122,10 +124,13 @@ create table WeekScheduleColumns (
 create table ScheduleItemsReasons (
     SIR_Id integer not null,
     SIR_WarnOnChange number(1),
-    SIR_Note number(22),
+    SIR_Note varchar2(22),
     SIR_Color varchar2(20),
     constraint sir_pk primary key (SIR_Id)
 );
+/*
+alter table ScheduleItemsReasons modify SIR_Note varchar2(22);
+*/
 
 create table ActivitiesTypes (
     AT_Id integer not null,
@@ -133,7 +138,7 @@ create table ActivitiesTypes (
     SIR_Id integer,
     PP_Id integer,
     AT_ShowOnDay number(1),
-    AT_ShowOnDayAs varchar2(20)
+    AT_ShowOnDayAs varchar2(45),
     AT_ShowOnWeekAs varchar2(16),
     AT_Bold number(1),
     AT_Italics number(1),
@@ -142,7 +147,7 @@ create table ActivitiesTypes (
     AT_TimeOnWeekAs varchar2(20),
     AT_TimeColor varchar2(20),
     AT_LimitPerWeek number(1),
-    AT_FractionOfDay number(1,3),
+    AT_FractionOfDay number(4,3),
     AT_Available number(1),
     constraint at_pk primary key (AT_Id),
     constraint at_sir_id_fk
@@ -155,6 +160,10 @@ create table ActivitiesTypes (
         foreign key (WPT_Id)
         references WorkPermissionsTypes (WPT_Id)
 );
+/*
+alter table ActivitiesTypes modify AT_FractionOfDay number(4,3);
+alter table ActivitiesTypes modify AT_ShowOnDayAs varchar2(45);
+*/
 /*AT_ShowOnWeekAs overrides SlotCodes.SC_ShowOnWeekAs*/
 
 create table ScheduleItems (
@@ -163,7 +172,7 @@ create table ScheduleItems (
     W_Id integer not null,
     WSC_Id integer not null,
     AT_Id number not null,
-    SI_Time time,
+    SI_Time char(5),
     SI_ShowOnWkAs varchar2(16),
     SIR_Id integer,
     constraint si_pk primary key (SI_Id),
@@ -172,7 +181,7 @@ create table ScheduleItems (
         references People (P_Id),
     constraint si_w_id_fk
         foreign key (W_Id)
-        references Week (W_Id),
+        references Weeks (W_Id),
     constraint si_wsc_id_fk
         foreign key (WSC_Id)
         references WeekScheduleColumns (WSC_Id),
@@ -185,6 +194,18 @@ create table ScheduleItems (
 );
 /* If SI_ShowOnWkAs is not null, it overrides the related value of AT_ShowOnWeekAs*/
 
+create sequence si_id_seq;
+create or replace trigger si_id_trg
+before insert on PeopleFlagsTypes
+for each row
+when (new.SI_Id is null)
+begin
+  select si_id_seq.nextval
+  into   :new.SI_Id
+  from   dual;
+end;
+/
+/*(“SQL - How to,” 2018)*/
 
 
 /*
